@@ -7,6 +7,33 @@
 </head>
 <body>
 <script>
+  window.addEventListener('keyup', keyUp)
+
+  let keys = [];
+  let tracking = false;
+  const secretKeys = ['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'a', 'b'];
+  const sequence = 'ArrowUp,ArrowUp,ArrowDown,ArrowDown,ArrowLeft,ArrowRight,ArrowLeft,ArrowRight,a,b';
+
+  function keyUp(e) {
+    const {key} = e;
+    if (key === 'ArrowUp') {
+      tracking = true;
+    }
+    if (tracking) {
+      if (secretKeys.includes(key)) {
+        keys.push(key)
+      } else {
+        tracking = false;
+        keys = [];
+      }
+    }
+    if (key === 'b' && tracking) {
+      const konami = keys.join(',');
+      console.log('DING DING DING!')
+      cornify_add();
+      keys = [];
+    }
+  }
 </script>
 </body>
 </html>
